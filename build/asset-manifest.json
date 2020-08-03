@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/freecodecamp-dump/static/css/main.37f22037.chunk.css",
+    "main.js": "/freecodecamp-dump/static/js/main.76ad24ee.chunk.js",
+    "main.js.map": "/freecodecamp-dump/static/js/main.76ad24ee.chunk.js.map",
+    "runtime-main.js": "/freecodecamp-dump/static/js/runtime-main.d49e6f26.js",
+    "runtime-main.js.map": "/freecodecamp-dump/static/js/runtime-main.d49e6f26.js.map",
+    "static/js/2.fa071812.chunk.js": "/freecodecamp-dump/static/js/2.fa071812.chunk.js",
+    "static/js/2.fa071812.chunk.js.map": "/freecodecamp-dump/static/js/2.fa071812.chunk.js.map",
+    "index.html": "/freecodecamp-dump/index.html",
+    "precache-manifest.1bfa176d0fe83b815d5db55c3f7bbf69.js": "/freecodecamp-dump/precache-manifest.1bfa176d0fe83b815d5db55c3f7bbf69.js",
+    "service-worker.js": "/freecodecamp-dump/service-worker.js",
+    "static/css/main.37f22037.chunk.css.map": "/freecodecamp-dump/static/css/main.37f22037.chunk.css.map",
+    "static/js/2.fa071812.chunk.js.LICENSE.txt": "/freecodecamp-dump/static/js/2.fa071812.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d49e6f26.js",
+    "static/js/2.fa071812.chunk.js",
+    "static/css/main.37f22037.chunk.css",
+    "static/js/main.76ad24ee.chunk.js"
+  ]
+}

@@ -47,7 +47,6 @@ const App = () => {
       sound.currentTime = 0;
       sound.volume = volume / 100;
       sound.play();
-
     }
     setTimeout(() => {
       setSelected({});
