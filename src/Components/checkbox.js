@@ -1,14 +1,15 @@
 import React from 'react'
 
-const Checkbox = ({ name = '', onChange, active = false }) => {
-  console.log('active', { active, name });
+const Checkbox = ({ name = '', onChange, active = false }) =>{
+  console.log('Checkbox'+name, active);
+  // console.log('active', { active, name });
   return (
-    <div class="button-switch">
-      <input onClick={onChange} type="checkbox" name={name} id="switch-blue" class="switch" defaultChecked={active} />
-      <label for="switch-blue" class="lbl-off">Off</label>
-      <label for="switch-blue" class="lbl-on">On</label>
+    <div className="button-switch">
+      <input onChange={onChange} type="checkbox" name={name} id={`switch-blue`} className="switch" />
+      <label for="switch-blue" className="lbl-off">Off</label>
+      <label for="switch-blue" className="lbl-on">On</label>
     </div>
   )
 }
 
-export default Checkbox;
+export default React.memo(Checkbox);

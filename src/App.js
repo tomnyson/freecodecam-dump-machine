@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
 import { bankOne, bankTwo } from './const';
+import { useDispatch } from 'react-redux'
 import PadNum from './Components/PadNum';
 import Checkbox from './Components/checkbox';
 import Range from './Components/range'
+import { changePower, changeBank, fetchApi } from './store/reducers/dumpSlice';
 
 const App = () => {
   const [selected, setSelected] = useState({})
   const [bank, setBank] = useState(true)
   const [power, setPower] = useState(true)
   const [volume, setVolume] = useState(100);
+  const dispatch = useDispatch();
   const source = bank ? bankOne : bankTwo;
   useEffect(() => {
+    // dispatch(fetchApi());
     document.addEventListener('keydown', onKeyDown);
     document.addEventListener('keyup', onKeyUp);
     return () => {
@@ -52,12 +56,20 @@ const App = () => {
       setSelected({});
     }, 100)
   }
-  const onChange = (event) => {
-    if (event.target.name === 'bank') {
+  const onChange = (event, type) => {
+    //console.log('event.target.checked', event.target.checked);
+    console.log('event.target.name', event.target.name);
+
+    if (type === 'bank') {
       setBank(!bank)
-    } else {
-      setPower(!power)
+      dispatch(changeBank(!bank))
     }
+
+    if (type === 'power') {
+      setPower(!power)
+      dispatch(changePower(!power))
+    }
+
   }
 
   const onChangeRange = (event) => {
@@ -77,15 +89,17 @@ const App = () => {
         <div id="display">{selected && selected.id}</div>
         <span>Power</span>
         <Checkbox
-          active={bank}
-          onChange={onChange}
-          name="power" />
+          name={'power'}
+          active={power}
+          onChange={(e) => onChange(e, 'power')}
+        />
         <span>volume</span>
         <Range onChange={onChangeRange} />
         <span>bank</span>
-        <Checkbox name="bank"
-          active={bank}
-          onChange={onChange}
+        <Checkbox
+          name={'bank'}
+          active={true}
+          onChange={(e) => onChange(e, "bank")}
         />
 
       </div>
