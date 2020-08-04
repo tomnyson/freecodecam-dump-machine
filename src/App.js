@@ -57,9 +57,6 @@ const App = () => {
     }, 100)
   }
   const onChange = (event, type) => {
-    //console.log('event.target.checked', event.target.checked);
-    console.log('event.target.name', event.target.name);
-
     if (type === 'bank') {
       setBank(!bank)
       dispatch(changeBank(!bank))
