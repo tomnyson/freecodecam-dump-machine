@@ -1,107 +1,81 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react'
+import Pad from './Components/pad';
+import SidePanel from './Components/SidePanel'
+import { data } from './const'
 import './App.scss';
-import { bankOne, bankTwo } from './const';
-import { useDispatch } from 'react-redux'
-import PadNum from './Components/PadNum';
-import Checkbox from './Components/checkbox';
-import Range from './Components/range'
-import { changePower, changeBank, fetchApi } from './store/reducers/dumpSlice';
 
-const App = () => {
-  const [selected, setSelected] = useState({})
-  const [bank, setBank] = useState(true)
-  const [power, setPower] = useState(true)
-  const [volume, setVolume] = useState(100);
-  const dispatch = useDispatch();
-  const source = bank ? bankOne : bankTwo;
-  useEffect(() => {
-    // dispatch(fetchApi());
-    document.addEventListener('keydown', onKeyDown);
-    document.addEventListener('keyup', onKeyUp);
-    return () => {
-      document.removeEventListener('keydown', onKeyDown);
-      document.removeEventListener('keyup', onKeyUp);
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentSound: '',
+      power: true,
+      volumeInput: 50,
+      volume: 0.5
     }
-  })
-
-  const onKeyDown = ({ key }) => {
-    const findIndex = source && source.filter(item => item.keyTrigger === key.toUpperCase());
-    if (findIndex.length) {
-      setSelected(findIndex[0]);
-      if (power) {
-        const sound = document.getElementById(findIndex[0].keyTrigger);
-        sound.currentTime = 0;
-        sound.volume = volume / 100;
-        sound.play();
-      }
-    }
-
+    this.updateDisplay = this.updateDisplay.bind(this);
+    this.togglePower = this.togglePower.bind(this);
+    this.changeVolume = this.changeVolume.bind(this);
   }
 
-  const onKeyUp = ({ key }) => {
+  updateDisplay(id) {
+    this.setState({ currentSound: id });
+  }
+
+  togglePower() {
+    const message = !this.state.power && 'Welcome';
+    this.setState({
+      power: !this.state.power,
+      currentSound: message
+    });
     setTimeout(() => {
-      setSelected({})
-    }, 100);
+      this.setState({ currentSound: '' });
+    }, 1500);
   }
 
-  const playAudio = (value) => {
-    setSelected(value);
-    if (power) {
-      const sound = document.getElementById(value.keyTrigger);
-      sound.currentTime = 0;
-      sound.volume = volume / 100;
-      sound.play();
-    }
-    setTimeout(() => {
-      setSelected({});
-    }, 100)
-  }
-  const onChange = (event, type) => {
-    if (type === 'bank') {
-      setBank(!bank)
-      dispatch(changeBank(!bank))
-    }
-
-    if (type === 'power') {
-      setPower(!power)
-      dispatch(changePower(!power))
-    }
-
+  changeVolume(e) {
+    const volume = e.target.value / 100;
+    const message = "Volume: " + e.target.value;
+    this.setState({
+      volume: volume,
+      volumeInput: e.target.value,
+      currentSound: message
+    })
   }
 
-  const onChangeRange = (event) => {
-    setVolume(Number(event.target.value))
-  }
+  render() {
 
-  return (
-    <div id="drum-machine">
-      <div className="control">
-        {source && source.map(item => {
-          return (
-            <PadNum handlePlay={playAudio} selected={selected}  {...item} />
-          )
-        })}
+    const colorStyle = this.state.power ? { background: '#1ec8ce' } : { background: '#476b68' };
+
+    const pads = data && data.map((pad, i) => {
+      return <Pad key={i}
+        pad={pad}
+        updateDisplay={this.updateDisplay}
+        power={this.state.power}
+        volume={this.state.volume}
+        style={colorStyle}
+      />
+    });
+
+    return (
+      <div id="drum-machine">
+        <div className="container">
+          <div className="machine">
+            <div className="pads">
+              {pads}
+            </div>
+            <SidePanel volumeInput={this.state.volumeInput}
+              togglePower={this.togglePower}
+              changeVolume={this.changeVolume}
+              currentSound={this.state.currentSound}
+              power={this.state.power}
+              colorStyle={colorStyle}
+            />
+          </div>
+        </div>
       </div>
-      <div className="setup">
-        <div id="display">{selected && selected.id}</div>
-        <span>Power</span>
-        <Checkbox
-          name={'power'}
-          active={power}
-          onChange={(e) => onChange(e, 'power')}
-        />
-        <span>volume</span>
-        <Range onChange={onChangeRange} />
-        <span>bank</span>
-        <Checkbox
-          name={'bank'}
-          active={true}
-          onChange={(e) => onChange(e, "bank")}
-        />
-
-      </div>
-    </div>
-  );
+    )
+  }
 }
-
 export default App;

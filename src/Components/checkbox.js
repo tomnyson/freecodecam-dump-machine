@@ -1,7 +1,6 @@
 import React from 'react'
 
-const Checkbox = ({ name = '', onChange, active = false }) =>{
-  console.log('Checkbox'+name, active);
+const Checkbox = ({ name = '', onChange, active = false }) => {
   // console.log('active', { active, name });
   return (
     <div className="button-switch">

@@ -13,11 +13,9 @@ const dumpSlice = createSlice({
   },
   reducers: {
     changePower(state, action) {
-      console.log('changePower', action);
       state.power = action.payload
     },
     changeBank(state, action) {
-      console.log('changeBank', action);
       state.bank = action.payload
     },
     addSelected(state, action) {
@@ -28,7 +26,6 @@ const dumpSlice = createSlice({
       state.loading = true
     },
     callApiSucess(state, action) {
-      console.log('fetchApi', action.payload);
       state.loading = false
       state.list = action.payload
     },
