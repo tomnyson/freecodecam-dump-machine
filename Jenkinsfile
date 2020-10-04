@@ -16,7 +16,7 @@ pipeline {
             }
         }
         stage("speak") {
-        slackSend color: '#BADA55', message: 'build notification', channel: build-cicd
+        slackSend color: '#BADA55', message: 'build notification', channel: 'build-cicd'
     }
     }
 }
