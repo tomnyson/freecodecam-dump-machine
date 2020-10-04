@@ -17,7 +17,7 @@ pipeline {
         }
         stage("speak") {
             steps {
-                slackSend color: '#BADA55', message: 'build success $BUILD_TIMESTAMP', channel: 'build-cicd'
+                slackSend color: '#BADA55', message: "build success $BUILD_TIMESTAMP", channel: 'build-cicd'
             }
     }
     }
