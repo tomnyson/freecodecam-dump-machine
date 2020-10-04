@@ -17,7 +17,7 @@ pipeline {
         }
         stage("speak") {
             steps {
-                slackSend color: '#BADA55', message: "build success '${$BUILD_TIMESTAMP}'", channel: 'build-cicd'
+                slackSend color: '#BADA55', message: "build success $(env.BUILD_NUMBER}", channel: 'build-cicd'
                 emailext (
       subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
       body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
